@@ -5,6 +5,7 @@ import { Action, UnifiedProcess } from "../common/types/general";
 import { getApps, manageApp } from "./lib/pm2";
 import { getContainers, manageContainer } from "./lib/docker";
 
+const port = Number(process.env.PORT) || 3000;
 const app = express();
 
 app.use(express.json());
@@ -124,6 +125,6 @@ app.post("/api/:type/action/:action", async (req, res) => {
   }
 });
 
-ViteExpress.listen(app, 3000, () =>
-  console.log("Server is listening on port 3000...")
+ViteExpress.listen(app, port, () =>
+  console.log("Server is listening on port", port)
 );
