@@ -4,6 +4,7 @@ import { sanitizeError } from "../common/utils/error";
 import { Action, UnifiedProcess } from "../common/types/general";
 import { getApps, manageApp } from "./lib/pm2";
 import { getContainers, manageContainer } from "./lib/docker";
+import { getHostData } from "./lib/hostData";
 
 const port = Number(process.env.PORT) || 3000;
 const app = express();
@@ -26,9 +27,10 @@ app.get("/api/docker/apps", (_, res) => {
   }
 });
 
-app.get("/api/apps", (_, res) => {
+app.get("/api/data", (_, res) => {
   try {
     const now = Date.now();
+    const hostData = getHostData();
 
     const mappedPM2: UnifiedProcess[] = getApps().map((p) => {
       const running = p.pm2_env.status === "online";
@@ -84,7 +86,10 @@ app.get("/api/apps", (_, res) => {
       }
     );
 
-    res.send([...mappedPM2, ...mappedDocker]);
+    res.send({
+      ...hostData,
+      apps: [...mappedPM2, ...mappedDocker],
+    });
   } catch (err) {
     res.status(500).send(sanitizeError(err));
   }

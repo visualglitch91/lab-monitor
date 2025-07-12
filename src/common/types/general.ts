@@ -19,4 +19,16 @@ export interface StackSummary {
   status: "running" | "partial" | "stopped";
 }
 
+export interface ServerData {
+  hostname: string;
+  cpuUsage: number;
+  memory: { used: number; free: number; total: number };
+  apps: UnifiedProcess[];
+}
+
+export interface ClientData {
+  server: Omit<ServerData, "apps">;
+  stacks: StackSummary[];
+}
+
 export type Action = "start" | "restart" | "stop";

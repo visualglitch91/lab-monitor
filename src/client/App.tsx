@@ -6,32 +6,33 @@ import {
   ThemeProvider,
   CardContent,
   TextField,
-  Chip,
-  Box,
 } from "@mui/material";
-import { StackSummary } from "../common/types/general";
+import { ClientData, ServerData, StackSummary } from "../common/types/general";
 import { stringifyError } from "../common/utils/error";
 import theme from "./utils/theme";
 import useDebounce from "./utils/useDebounce";
 import groupByStack from "./utils/groupByStack";
 import ProcessStack from "./components/ProcessStack";
 import ProcessStackTable from "./components/ProcessStackTable";
-import { bytes } from "./utils/formatting";
+import PageTitle from "./components/PageTitle";
 
 export default function App() {
-  const [data, setData] = useState<StackSummary[]>([]);
   const [query, setQuery] = useState("");
+  const [data, setData] = useState<ClientData | null>(null);
 
   useEffect(() => {
     let timeout = 0;
 
     const loadData = async () => {
       try {
-        const data = await fetch("/api/apps").then((res) => res.json());
-        setData(groupByStack(data));
+        const { apps, ...server }: ServerData = await fetch("/api/data").then(
+          (res) => res.json()
+        );
+
+        setData({ server, stacks: groupByStack(apps) });
       } catch (err) {
         alert(stringifyError(err));
-        setData([]);
+        setData(null);
       }
 
       timeout = window.setTimeout(loadData, 1_000);
@@ -48,23 +49,15 @@ export default function App() {
     setQuery(value);
   }, 120);
 
-  const totalCpu = data.reduce((acc, stack) => acc + stack.cpu, 0);
-  const totalMemory = data.reduce((acc, stack) => acc + stack.memory, 0);
+  if (!data) {
+    return null;
+  }
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Stack>
-        <CardHeader
-          title={
-            <Stack direction="row" gap={1} alignItems="center">
-              <Box mt="-g2px">Lab Monitor</Box>
-              <Chip size="small" label={<>CPU: {totalCpu.toFixed(1)}%</>} />
-              <Chip size="small" label={<>Memory: {bytes(totalMemory)}</>} />
-            </Stack>
-          }
-          sx={{ pb: 0 }}
-        />
+        <CardHeader title={<PageTitle data={data} />} sx={{ pb: 0 }} />
         <CardContent>
           <TextField
             fullWidth
@@ -76,7 +69,7 @@ export default function App() {
             onChange={(e) => updateQuery(e.target.value)}
           />
           <ProcessStackTable>
-            {data
+            {data.stacks
               .filter((it) => {
                 return it.searchIndex.includes(query.trim().toLowerCase());
               })

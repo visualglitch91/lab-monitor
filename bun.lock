@@ -18,6 +18,7 @@
         "pretty-bytes": "^7.0.0",
         "react": "^19.1.0",
         "react-dom": "^19.1.0",
+        "systeminformation": "^5.27.7",
         "typescript": "^5.8.3",
         "vite-express": "*",
         "wouter": "^3.7.1",
@@ -678,6 +679,8 @@
     "supports-color": ["supports-color@5.5.0", "", { "dependencies": { "has-flag": "^3.0.0" } }, "sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow=="],
 
     "supports-preserve-symlinks-flag": ["supports-preserve-symlinks-flag@1.0.0", "", {}, "sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w=="],
+
+    "systeminformation": ["systeminformation@5.27.7", "", { "os": "!aix", "bin": { "systeminformation": "lib/cli.js" } }, "sha512-saaqOoVEEFaux4v0K8Q7caiauRwjXC4XbD2eH60dxHXbpKxQ8kH9Rf7Jh+nryKpOUSEFxtCdBlSUx0/lO6rwRg=="],
 
     "tar-fs": ["tar-fs@2.1.3", "", { "dependencies": { "chownr": "^1.1.1", "mkdirp-classic": "^0.5.2", "pump": "^3.0.0", "tar-stream": "^2.1.4" } }, "sha512-090nwYJDmlhwFwEW3QQl+vaNnxsO2yVsd45eTKRBzSzu+hlb1w2K9inVq5b0ngXuLVqQ4ApvsUHHnu/zQNkWAg=="],
 

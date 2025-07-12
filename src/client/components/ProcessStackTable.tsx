@@ -27,6 +27,12 @@ const ProcessStackTableRoot = styled("div")(({ theme }) => ({
     display: "flex",
     borderBottom: `1px solid ${theme.palette.divider}`,
   },
+  "& .MuiTableHead-root": {
+    background: theme.palette.background.default,
+    position: "sticky",
+    top: 0,
+    zIndex: 2,
+  },
   "& .MuiTableHead-root .MuiTableRow-root:hover": {
     fontWeight: "bold",
   },

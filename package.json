@@ -23,6 +23,7 @@
     "pretty-bytes": "^7.0.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "systeminformation": "^5.27.7",
     "typescript": "^5.8.3",
     "vite-express": "*",
     "wouter": "^3.7.1"

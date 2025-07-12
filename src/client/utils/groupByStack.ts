@@ -1,3 +1,4 @@
+import { sortBy } from "lodash";
 import { StackSummary, UnifiedProcess } from "../../common/types/general";
 
 export default function groupByStack(
@@ -7,11 +8,9 @@ export default function groupByStack(
 
   for (const proc of processes) {
     const key = proc.stack?.trim() || proc.name;
-
     if (!stackMap.has(key)) {
       stackMap.set(key, []);
     }
-
     stackMap.get(key)!.push(proc);
   }
 
@@ -27,7 +26,6 @@ export default function groupByStack(
       searchIndex += `|${p.name}`;
       totalMemory += p.memory || 0;
       totalCpu += p.cpu || 0;
-
       if (p.status === "running") {
         runningCount += 1;
       }
@@ -43,7 +41,7 @@ export default function groupByStack(
     result.push({
       type: procs[0].type,
       name: stack,
-      processes: procs,
+      processes: sortBy(procs, "name"),
       memory: totalMemory,
       cpu: totalCpu,
       status,
@@ -51,5 +49,5 @@ export default function groupByStack(
     });
   }
 
-  return result;
+  return sortBy(result, "name");
 }
