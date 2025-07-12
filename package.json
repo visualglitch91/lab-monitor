@@ -1,0 +1,40 @@
+{
+  "name": "lab-monitor",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon -w src/server -x bun src/server/main.ts",
+    "prod": "vite build && NODE_ENV=production bun src/server/main.ts",
+    "start": "bun run prod"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^7.2.0",
+    "@mui/material": "^7.1.2",
+    "@mui/x-data-grid": "^8.5.3",
+    "@types/dockerode": "^3.3.42",
+    "csvtojson": "^2.0.10",
+    "dockerode": "^4.0.7",
+    "express": "^5.1.0",
+    "humanize-duration": "^3.33.0",
+    "lodash": "^4.17.21",
+    "pretty-bytes": "^7.0.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "typescript": "^5.8.3",
+    "vite-express": "*",
+    "wouter": "^3.7.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "@types/lodash": "^4.17.18",
+    "@types/node": "^22.15.2",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@vitejs/plugin-react": "^4.4.1",
+    "nodemon": "^3.1.10",
+    "vite": "^6.3.3"
+  }
+}
